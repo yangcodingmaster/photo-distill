@@ -6,11 +6,11 @@ A skill for Claude Code (and Codex, via [AGENTS.md](AGENTS.md)) that distils you
 photograph into a minimal zine-style paper poster — hand-written HTML/CSS/SVG rendered
 by headless Chrome. No image-generation model. No photo pixels in the output.
 
-## Visual Direction
+## Visual Design
 
 The poster keeps:
 
-- an aged off-white paper canvas, at the photograph's own aspect ratio
+- an aged off-white plain, at the photograph's own aspect ratio
 - 70–90% of the sheet reading as paper; ink only where it earns its place
 - two or three printed marks distilled from elements **you** name — the rest is dropped
 - one high-saturation colour anchor, 0.8–2.5% of the canvas, verified by script
