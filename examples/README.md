@@ -167,4 +167,50 @@ Measured on the finished file: colour anchor 1.93% of canvas (target 0.8–2.5%)
 
 ---
 
+## NO. 025 — 内透的光与投射的光 / Light From Within, Light Cast Down
+
+| 原片 Original | 成品 Poster |
+|---|---|
+| ![](25-primrose-original.jpg) | ![](25-primrose-poster.jpg) |
+
+The first poster made under the revised workflow: three written options first, then a
+low-fidelity sketch, then texture. The brief that shaped it came from one sentence — the
+park's yellow lamps, and their relationship to the city's lit windows behind.
+
+That word, *from within*, decided the whole grammar. **The two kinds of light had to be
+drawn as two different symbols**: the distant windows glow but illuminate nothing, so they
+are hard-edged little blocks with no halo at all; the lamps cast light, so each has a small
+bright core and a wide smear of warm ink pooled on the ground beneath it.
+
+The skyline is not drawn. The measured density of lit windows (per-cell counts, adaptive
+threshold per row) is kept, then **the positions are re-scattered at random within each
+cell** — density survives, building silhouettes do not. An earlier draft sampled positions
+directly and you could pick out the Shard; that is drawing the object again.
+
+Paper does double duty here: it is the dusk sky above, and it is the unlit grass below.
+Ink can't print light on cream paper, so darkness is simply where nothing was printed, and
+the tree line — one narrow band dissolving downward — is the only solid ink in the sheet.
+
+用改版后流程做的第一张：先给三个文字方案，再出低保真草图，最后才上质感。
+定调的是用户的一句话——公园里那些黄色的路灯光点，与它们背后城市灯光内透的关系。
+
+"内透"这个词决定了整套语法。**两种光必须画成两种符号**：远处的窗光自身发亮却不照亮任何
+东西，所以是**没有一点晕**的硬边小方块；路灯是投射光，所以每盏都是一个小亮核 + 下方
+一摊洒开的暖墨。
+
+天际线不画。实测的窗光密度（逐格计数、逐行自适应阈值）保留下来，
+但**位置在每个格子内重新随机撒过**——密度留下，建筑轮廓丢弃。
+早先一版直接照位置采样，结果能认出碎片大厦的尖顶：那又是在画物体了。
+
+纸在这张里身兼两职：既是上方的暮色天空，也是下方没被照亮的草地。
+米白纸上印不出光，所以"暗"就是没印东西的地方，而树线——一条往下化开的窄带——
+是全张唯一的实墨。
+
+Measured on the finished file: colour anchor 1.72%, ink 17.9%, paper 82.1%, hue 36° with
+5–95 percentile spanning just 36–38°.
+
+成品实测：色锚 1.72%，着墨 17.9%，纸 82.1%，色相 36°、5–95 分位只跨 36–38°。
+
+---
+
 *Photographs © Yang Zhao. 照片版权归赵洋所有。*

@@ -179,6 +179,30 @@ transform: perspective(1400px) rotateY(-14deg) rotateZ(-6deg);
 所以吃墨范围要**按实测的边宽定，不要凭手感放大**（那次窗框实测只有 29 画布px，
 却吃了 96px）。改完必须重测色锚面积，它和吃墨范围是耦合的。
 
+**③ 附加层必须跟主体用同一个衰减，否则它自己会切出一条边。**
+颗粒层、套印错位副本这些"再画一遍"的层，默认铺满整个形状。
+主体用渐变往下化开了，附加层却在 path 边界处硬切——于是横贯全幅冒出一条淡边。
+一次实测：主体渐变在 y=522 归零，颗粒层却铺到 path 下缘 y=574，
+在那里切出 Δ≈10/765 的亮度台阶，肉眼一眼就看见。
+
+修法是给附加层套一个和主体同范围的 mask：
+
+```xml
+<linearGradient id="groundFade" x1="0" y1="322" x2="0" y2="522" gradientUnits="userSpaceOnUse">
+  <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#000000"/>
+</linearGradient>
+<mask id="groundM"><rect x="0" y="0" width="1400" height="933" fill="url(#groundFade)"/></mask>
+...
+<path d="…" filter="url(#grain)" opacity="0.10" mask="url(#groundM)" style="mix-blend-mode:screen"/>
+```
+
+**顺带一条：path 的边界要落在渐变归零之后。** 边界卡在渐变还剩 5% 的地方，
+同样会留下一条线。
+
+**横边自查**：人眼对横贯全幅的直边极敏感（马赫带），1% 的亮度差就看得见，
+但脚本很容易判它"没问题"。用逐行均值的差分扫一遍，
+`Δ > 8/765` 基本就是可见硬边；只在主体自己的轮廓处（比如树线上缘）才允许出现。
+
 ---
 
 ## 自查清单（定稿前逐条过）
