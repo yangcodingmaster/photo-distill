@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<!--
+  photo-distill 起步骨架。复制一份改名 poster-XX-name.html 再动手。
+  标着 ★ 的是每张都要改的槽位；其余是设计系统常量，别动。
+-->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>poster-XX-name</title><!-- ★ -->
+<style>
+  :root {
+    --paper: #e9e3d5;
+    --ink: #57524a;
+    --ink-faint: #8d867a;
+    --accent: #2f66b8;   /* ★ 色锚：按内容改名改值，一张一个高饱和色 */
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    background: #b8b0a0;
+    font-family: "Courier New", "Courier", "Songti SC", "STSong", serif;
+  }
+
+  /* ---------- 画布 ★：与原片同比例（脚本算高度，别估） ---------- */
+  .poster {
+    position: relative;
+    width: 1400px;
+    height: 928px;
+    margin: 0 auto;
+    overflow: hidden;
+    background:
+      radial-gradient(110% 90% at 26% 20%, rgba(255, 252, 240, 0.42), transparent 62%),
+      radial-gradient(70% 60% at 88% 78%, rgba(190, 178, 152, 0.28), transparent 70%),
+      radial-gradient(45% 45% at 10% 92%, rgba(196, 186, 162, 0.24), transparent 70%),
+      var(--paper);
+  }
+
+  /* 噪点：逐字节照抄，别调参数 */
+  .poster::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+    opacity: 0.07;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: 9;
+  }
+
+  /* 斑驳：位置可微调，结构别改 */
+  .mottle {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(200px 130px at 68% 22%, rgba(184, 170, 140, 0.12), transparent 70%),
+      radial-gradient(240px 160px at 18% 66%, rgba(184, 170, 140, 0.1), transparent 70%),
+      radial-gradient(130px 100px at 86% 88%, rgba(170, 155, 125, 0.09), transparent 70%);
+    z-index: 1;
+  }
+
+  /* ★ 内容层：远→近各一个 <svg>，全部 multiply。按这张的图形语言增删改名 */
+  .layer-far  { position: absolute; left: 0; top: 0; mix-blend-mode: multiply; z-index: 2; }
+  .layer-mid  { position: absolute; left: 0; top: 0; mix-blend-mode: multiply; z-index: 3; }
+  .layer-near { position: absolute; left: 0; top: 0; mix-blend-mode: multiply; z-index: 5; }
+
+  /* 暗角：只在原片本身有暗角语义时启用（隔着车窗/取景框拍），否则删掉
+  .vignette {
+    position: absolute; inset: 0; z-index: 6;
+    background:
+      radial-gradient(58% 52% at 0% 0%,     rgba(88, 82, 72, 0.16), transparent 72%),
+      radial-gradient(58% 52% at 100% 0%,   rgba(88, 82, 72, 0.15), transparent 72%),
+      radial-gradient(58% 52% at 0% 100%,   rgba(88, 82, 72, 0.13), transparent 72%),
+      radial-gradient(58% 52% at 100% 100%, rgba(88, 82, 72, 0.14), transparent 72%);
+    mix-blend-mode: multiply; pointer-events: none;
+  }
+  */
+
+  .archive {
+    position: absolute; left: 116px; bottom: 76px;
+    font-size: 9px; line-height: 2.1; letter-spacing: 0.16em;
+    color: var(--ink-faint); z-index: 7;
+  }
+  .index-no {
+    position: absolute; right: 116px; top: 84px;
+    font-size: 9px; letter-spacing: 0.3em; color: var(--ink-faint); z-index: 7;
+  }
+  .reg-mark {
+    position: absolute; left: 118px; top: 84px;
+    font-size: 11px; color: var(--ink-faint); opacity: 0.7; z-index: 7;
+  }
+</style>
+</head>
+<body>
+
+  <!-- 给 HTML 元素用 CSS filter: url(#rough1) 时，滤镜放这里 -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <filter id="rough1" x="-15%" y="-15%" width="130%" height="130%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="3" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="2.5" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <div class="poster">
+    <div class="mottle"></div>
+
+    <!-- ★ 这张的符号画在这里。每层一句注释写清「这一层是什么」，不是写代码在干嘛 -->
+    <svg class="layer-mid" width="1400" height="928" viewBox="0 0 1400 928">
+      <defs>
+        <filter id="rough2" x="-8%" y="-8%" width="116%" height="116%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.013" numOctaves="3" seed="11" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+        <filter id="rough3" x="-6%" y="-30%" width="112%" height="160%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.008" numOctaves="2" seed="17" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+        <filter id="grain" x="0%" y="0%" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="23" result="g"/>
+          <feColorMatrix in="g" type="saturate" values="0"/>
+        </filter>
+      </defs>
+
+      <!-- 示范：一块色锚 + 套印错位副本 + 一层标准颗粒。画完删掉 -->
+      <g>
+        <rect x="560" y="430" width="280" height="68" rx="4" fill="var(--accent)"
+              opacity="0.30" filter="url(#rough2)" transform="translate(2.5,-2.5) rotate(-0.5 700 464)"/>
+        <rect x="560" y="430" width="280" height="68" rx="4" fill="var(--accent)"
+              filter="url(#rough2)" transform="rotate(-0.5 700 464)"/>
+        <rect x="560" y="430" width="280" height="68" rx="4"
+              filter="url(#grain)" opacity="0.12" style="mix-blend-mode:screen"
+              transform="rotate(-0.5 700 464)"/>
+      </g>
+      <line x1="300" y1="560" x2="1100" y2="566" stroke="#57524a" stroke-width="1.5"
+            opacity="0.18" filter="url(#rough3)"/>
+    </svg>
+
+    <!-- ★ 档案微字：真实参数，无 GPS 写 GPS —，地名只写能确证的 -->
+    <div class="archive">
+      FILENAME · CAMERA MODEL<br>
+      DD MON YYYY · HH:MM · f/X · 1/XXX · ISO XXX<br>
+      GPS —
+    </div>
+
+    <div class="index-no">NO. XXX</div><!-- ★ -->
+    <div class="reg-mark">+</div>
+  </div>
+</body>
+</html>
