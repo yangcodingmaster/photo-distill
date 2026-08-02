@@ -125,4 +125,46 @@ the wax. The `Δ 378 PX` annotation is a measured distance, not decoration.
 
 ---
 
+## NO. 024 — 一方冷，亮从里面让开 / A Cold Rectangle, and the Light That Steps Aside
+
+| 原片 Original | 成品 Poster |
+|---|---|
+| ![](24-shard-original.jpg) | ![](24-shard-poster.jpg) |
+
+Made with this skill from scratch, as a live test of it. A room at dusk, a window, the Shard
+two kilometres away. The first attempt drew the window — frame, mullion, transom — and read
+as an icon of a window. That is the "still counting petals" failure.
+
+What the photograph actually is: **one warm field with a cold rectangle cut into it, and
+everything visible is light stepping aside from that cold.** So the mullion is not drawn at
+all — only the difference it causes (left pane has sky and tower, measured L≈65; right pane
+is all tree shadow, L≈45) survives, as a gradient across the blue. The tower is drawn only
+for the length it actually glows: contrast measured +145 at its brightest, decaying to +15
+by y=383, so that is exactly where the shape stops. The beacon sits below it, alone in the
+dark stretch — because in the original it does too.
+
+The other fact the poster keeps: **near is blurred, far is sharp.** The window frame is out
+of focus in the photograph, the tower two kilometres away is not. So the tower is the only
+edge in the whole sheet, and every other boundary is eaten back into the paper.
+
+用这个 skill 从零做的一张，作为对 skill 本身的实测。黄昏的房间、一扇窗、两公里外的碎片大厦。
+第一版把窗画了出来——窗框、竖棂、横档——结果读作"一扇窗的图标"。
+这就是"还在数花瓣"的那种失败。
+
+照片真正的样子：**一整片暖里开了一方冷，而所有能被看见的东西，都是从那片冷里让开的亮。**
+所以竖棂完全不画，只留它造成的差异（左格有天有塔，实测 L≈65；右格全是树影，L≈45），
+变成蓝里的一道浓度梯度。塔只画它真的在发光的那一段：实测对比度最亮处 +145，
+衰减到 y=383 时只剩 +15，形状就正好停在那里。红灯孤零零在下面那段暗里——因为原片里它就是这样。
+
+海报保住的另一个事实：**近的糊、远的清。** 照片里窗框是失焦的，两公里外的塔却是清晰的。
+于是塔成了全张唯一的边，其余所有边界都被纸吃了回去。
+
+Measured on the finished file: colour anchor 1.93% of canvas (target 0.8–2.5%), ink 17.0%
+(target 8–25%), paper 83.0%, hue 211° with 5–95 percentile 206–212° — a single hue.
+
+成品实测：色锚占画布 1.93%（目标 0.8–2.5%），实际着墨 17.0%（目标 8–25%），纸 83.0%，
+色相 211°、5–95 分位 206–212°——单一主色相。
+
+---
+
 *Photographs © Yang Zhao. 照片版权归赵洋所有。*
