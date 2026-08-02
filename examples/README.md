@@ -244,4 +244,4 @@ Measured at sign-off: colour anchor 2.41%, ink 10.5%, paper 89.5%, hue 56° (54�
 
 ---
 
-*Photographs © Yang Zhao. 照片版权归赵洋所有。*
+*Photographs © the author. 照片版权归作者所有。*

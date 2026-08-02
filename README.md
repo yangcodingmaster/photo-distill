@@ -1,137 +1,96 @@
 # Photo Distill
 
-**Distil a photograph into three or four printed marks — one block of ink, one line,
-one point of colour, one row of small type. When the meaning is there, stop.**
+**English** | [简体中文](README.zh-CN.md)
 
-A skill for turning your own photographs into minimal zine-style paper posters.
-No image generation model. No photo pixels in the output. Every poster is hand-written
-HTML/CSS/SVG, drawn from coordinates sampled out of the original by script, and exported
-to PNG through headless Chrome.
+A skill for Claude Code (and Codex, via [AGENTS.md](AGENTS.md)) that distils your
+photograph into a minimal zine-style paper poster — hand-written HTML/CSS/SVG rendered
+by headless Chrome. No image-generation model. No photo pixels in the output.
 
-[中文版 →](README.zh-CN.md)
+## Visual Direction
 
-![](examples/23-sevensisters-poster.jpg)
+The poster keeps:
 
----
+- an aged off-white paper canvas, at the photograph's own aspect ratio
+- 70–90% of the sheet reading as paper; ink only where it earns its place
+- two or three printed marks distilled from elements **you** name — the rest is dropped
+- one high-saturation colour anchor, 0.8–2.5% of the canvas, verified by script
+- torn-paper soft edges, off-register doubles, print grain — ink pressed into paper
+- an archive line of real shooting parameters (file, camera, exposure, date, GPS)
 
-## What this is
-
-Most "turn my photo into art" tools work by transformation: filter the pixels, restyle
-them, generate a lookalike. This works the other way round. The photograph is read, measured,
-and then **abandoned** — what gets printed is a small set of abstract marks that carry the
-same relationship the photograph carried.
-
-The output is a single self-contained HTML file (double-click to open) plus a 2× PNG.
-Nothing to install, nothing to render, no API calls.
-
-## The method
-
-Three routes were tried. The first two failed, and the failures are the useful part:
-
-1. ❌ **Collage** — cut pixels from the photo, age them, paste them on paper.
-   Reads as a cut-out, not a poster.
-2. ❌ **Literal redrawing** — draw the whole scene: night sky, glowing lamp, misty tree line.
-   Too literal; it becomes an illustration of the photograph.
-3. ✅ **Abstract redrawing** — print abstract symbols on paper.
-   A street lamp at night = one tall indigo block (night) + a thin black line through it
-   (the pole) + an amber dot with an off-register double (the lamp) + an amber bar
-   below (the lit road).
-
-### Then one layer deeper: the reverse-semantic move
-
-The end of distillation isn't "draw the object more simply." It's **strip the photograph
-down until only a relationship is left, then draw only that relationship.**
-
-Forward semantics: *look at the image → recognise blossoms and asphalt.*
-Reverse: *extract the relationship (a uniform field with three anomalies) → draw the field
-and the anomalies.*
-
-> **The test: if the viewer is still counting petals, you are still drawing the object.**
-
-The objects may disappear. The facts may not — those three gaps still sit at the measured
-centres of the three bright clusters in the original file.
+and avoids: full-bleed scenes, cinematic lighting, 3D, drop shadows, decorative texture,
+clean digital UI, and any readable slogan or caption.
 
 ## Examples
 
-Eight original-to-poster pairs, each a different graphic language, with notes on what became
-what: **[examples/](examples/)**
+Photograph on the left, generated poster on the right.
+Notes on each pair: [examples/](examples/)
 
-| | |
+| Original | Poster |
 |---|---|
-| ![](examples/20-blossoms-poster.jpg) | ![](examples/22-aircraft-poster.jpg) |
-| ![](examples/09-lamp-poster.jpg) | ![](examples/04b-two-kids-poster.jpg) |
+| ![](examples/04b-two-kids-original.jpg) | ![](examples/04b-two-kids-poster.jpg) |
+| ![](examples/09-lamp-original.jpg) | ![](examples/09-lamp-poster.jpg) |
+| ![](examples/20-blossoms-original.jpg) | ![](examples/20-blossoms-poster.jpg) |
+| ![](examples/22-aircraft-original.jpg) | ![](examples/22-aircraft-poster.jpg) |
+| ![](examples/23-sevensisters-original.jpg) | ![](examples/23-sevensisters-poster.jpg) |
+| ![](examples/24-shard-original.jpg) | ![](examples/24-shard-poster.jpg) |
+| ![](examples/25-primrose-original.jpg) | ![](examples/25-primrose-poster.jpg) |
+| ![](examples/26-window-original.jpg) | ![](examples/26-window-poster.jpg) |
 
-## Install
+## Installation
 
 ```bash
-git clone <this repo> ~/code/photo-distill
-ln -s ~/code/photo-distill ~/.claude/skills/photo-distill
+git clone https://github.com/yangcodingmaster/photo-distill.git
+ln -s "$(pwd)/photo-distill" ~/.claude/skills/photo-distill
 ```
 
-The symlink makes it available in every Claude Code session; edit the source repo and both
-stay in sync. **Codex and other agents** read [AGENTS.md](AGENTS.md) at the repository
-root — point them at the folder and they'll find their way in.
+The symlink makes the skill available in every Claude Code session.
+**Codex users**: point the agent at this folder — it reads [AGENTS.md](AGENTS.md) at the
+root and finds its way in. No other setup.
 
-Then just say what you want:
+## Usage
 
-> 把这张照片做成海报 — *make a poster from this photo*
+**Step 1 — drop in a photo and name the two or three elements that matter to you.**
+That sentence is the whole brief:
 
-## How it runs
+> 把这张照片做成海报。我想突出窗户的轮廓、外面的绿，和浅浅的渐变光。
+>
+> *Make a poster from this photo. I want the window's outline, the green outside,
+> and the soft gradient of light.*
 
-One photograph at a time, and speed is the first metric: **the first image reaches you in
-about five minutes.**
+Everything you didn't name is neither sampled nor drawn — naming fewer elements gives a
+more abstract poster, naming more gives a more literal one. If you'd rather not choose,
+say so and the skill will ask one question or pick for you.
 
-1. **You name the two or three elements that matter** — "the window's outline, the green
-   outside, the soft light". That sentence is the plan; drawing starts immediately.
-   Anything you didn't name is neither sampled nor drawn
-2. Facts are read off the original (aspect ratio, EXIF), then one script samples only the
-   relation quantities those elements need — positions, densities, one dividing line, hue.
-   Contours are never sampled: sample a treetop's outline and you end up drawing a mountain
-3. Drawn at full texture in one pass, screenshotted, delivered
-4. You react ("the black reads like a mountain"), each fix re-renders in ~30 seconds
-5. When you say it's right: four metrics are verified by script, then exported at 2× and
-   committed
+**Step 2 — the first image arrives in about five minutes.** React in plain words:
 
-## What you can change
+> 黑的那块太重了，读起来像山。 · *The black band is too heavy — it reads like a mountain.*
 
-Six slots are open. The defaults are the origin of the visual language; the table in
-[references/design-system.md](references/design-system.md#6-自定义槽位) says what to
-respect when changing each.
+Each fix re-renders in about 30 seconds. You never touch the code.
 
-| Slot | Default |
-|---|---|
-| **Aspect ratio** | Same as the original photograph, portrait or landscape |
-| **Typeface** | Courier / Songti stack — one stack site-wide, italics disabled |
-| **Paper colour** | Warm off-white `#e9e3d5` |
-| **Colour anchor** | Rotates by photograph — cobalt, signal red, amber, mint… |
-| **Archive type** | Three lines of real shooting parameters |
-| **Numbering** | `NO. XXX` plus a registration mark |
+**Step 3 — say it's right.** Only then does the skill verify the four print metrics by
+script (colour-anchor area, ink coverage, thumbnail visibility, hue concentration),
+export at 2×, and commit.
 
-Some things are not open: the paper grain parameters, `multiply` ink-on-paper, the ban on
-material simulation, the four hard metrics for the colour anchor, and the list of hard
-avoids. Change those and it stops being this language.
+Six slots are customizable when you ask — aspect ratio, typeface, paper colour, colour
+anchor palette, archive line, numbering. Details in
+[references/design-system.md](references/design-system.md).
 
-## Contents
+## Output
+
+- `poster-XX-name.html` — self-contained, double-click to open, no dependencies
+- a 2× PNG export of the finished poster
+- an archive line on the sheet with your photo's real parameters — nothing invented
+
+## Repository Structure
 
 ```
-SKILL.md                     The method, the workflow, the hard rules — read first
-AGENTS.md                    Entry point for Codex and other agents
-references/
-  design-system.md           Paper, ink, colour anchor, archive type, hard avoids, slots
-  filters.md                 Copy-paste SVG filter library and mask patterns
-  craft-rules.md             Perspective, material grammar, failure cases, final checklist
-  pipeline.md                EXIF, the HEIC orientation trap, sampling, export commands
-assets/template.html         Skeleton to copy when starting a new poster
-examples/                    Eight original-to-poster pairs with notes
+SKILL.md              The method, the workflow, the hard rules
+AGENTS.md             Entry point for Codex and other agents
+references/           Design system · SVG filter library · craft rules · pipeline
+assets/template.html  Skeleton every new poster starts from
+examples/             Eight original-to-poster pairs with notes
 ```
 
-## Notes
+## License
 
-The filter parameters in here are not defaults anyone chose — they were calibrated one
-poster at a time, usually after two or three versions that looked fine and were wrong.
-The comments recording *how* each one failed are worth more than the values themselves.
-When something in here looks arbitrary, that's usually where a hard-won number is hiding.
-
----
-
-*Distilled from the Photo Minimal series (NO. 001–026). Photographs © Yang Zhao.*
+Method and code free to use. Photographs © the author — please don't reuse the images.

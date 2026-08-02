@@ -1,125 +1,88 @@
 # Photo Distill · 照片蒸馏
 
-**把照片蒸馏成三四个印刷符号——一块墨、一根线、一点色、一行小字，意思到了就停手。**
+[English](README.md) | **简体中文**
 
-一个把自己拍的照片做成极简 zine 纸质海报的 skill。不用图像生成模型，
-成品里没有一个照片像素。每张海报都是手写的 HTML/CSS/SVG，
-坐标由脚本从原片采样得到，无头 Chrome 导出 PNG。
+一个 Claude Code skill（Codex 用户经 [AGENTS.md](AGENTS.md) 同样可用）：
+把你拍的照片蒸馏成极简 zine 纸质海报——手写 HTML/CSS/SVG、无头 Chrome 渲染。
+不用图像生成模型，成品里没有一个照片像素。
 
-[English →](README.md)
+## 视觉方向
 
-![](examples/23-sevensisters-poster.jpg)
+海报保留的：
 
----
+- 米白做旧纸面，画幅与原片同比例
+- 整张 70–90% 读作纸；墨只落在配得上的地方
+- 两三个印刷符号，蒸馏自**你**点名的元素——其余全部丢掉
+- 一个高饱和色锚，占画布 0.8–2.5%，脚本实测把关
+- 手撕柔边、套印错位、印刷颗粒——油墨吃进纸里的样子
+- 一行真实拍摄参数（文件名、机身、曝光、日期、GPS）
 
-## 这是什么
-
-大多数"把照片变成艺术"的工具走的是变换：滤镜、风格迁移、生成一张相似的图。
-这个反过来。照片被读取、被测量，然后**被丢掉**——
-印在纸上的是一小组抽象记号，它们承载着照片承载过的同一个关系。
-
-产出是一个自足的本地 HTML 文件（双击可开）+ 一张 2 倍 PNG。
-不用装环境、不用渲染、不调接口。
-
-## 方法论
-
-三条路，前两条都失败了，而失败的部分才是有用的：
-
-1. ❌ **拼贴**——从照片裁像素、做旧、贴上纸。读起来是抠图，不是海报。
-2. ❌ **具象重绘**——画完整场景：夜空、发光的路灯、雾中的树线。
-   太具象，变成了照片的插图。
-3. ✅ **抽象重绘**——纸上印抽象符号。
-   夜里的一盏路灯 = 一块竖长靛蓝墨块（夜）+ 一根细黑线穿过（灯柱）
-   + 线顶一个带套印错位的琥珀圆点（灯）+ 下方一道琥珀横条（被照亮的路）。
-
-### 再往深一层：反向的语义过程
-
-蒸馏的尽头不是"把物体画简单"，而是**先把照片剥到只剩关系，再只画那个关系**。
-
-正向语义是：*看图 → 认出这是花和柏油*。
-反向是：*抽出关系（一片均质的场 + 三个异常点）→ 只画场与异常*。
-
-> **判据：如果观者还在数花瓣，画的就仍是物体。**
-
-物体可以消失，但事实不能改——那三处空处的坐标，
-仍然是从原片扫出来的那三个亮团中心。
+避开的：full-bleed 场景铺满、cinematic 打光、3D、厚投影、装饰纹理、
+干净的数字 UI，以及任何可读的口号或文案。
 
 ## 示例
 
-八对「原片 → 成品」对照，各自一种不同的图形语言，附上"什么变成了什么"的说明：
-**[examples/](examples/)**
+左边是照片，右边是生成的海报。每对的蒸馏说明见 [examples/](examples/)。
 
-| | |
+| 原片 | 海报 |
 |---|---|
-| ![](examples/20-blossoms-poster.jpg) | ![](examples/22-aircraft-poster.jpg) |
-| ![](examples/09-lamp-poster.jpg) | ![](examples/04b-two-kids-poster.jpg) |
+| ![](examples/04b-two-kids-original.jpg) | ![](examples/04b-two-kids-poster.jpg) |
+| ![](examples/09-lamp-original.jpg) | ![](examples/09-lamp-poster.jpg) |
+| ![](examples/20-blossoms-original.jpg) | ![](examples/20-blossoms-poster.jpg) |
+| ![](examples/22-aircraft-original.jpg) | ![](examples/22-aircraft-poster.jpg) |
+| ![](examples/23-sevensisters-original.jpg) | ![](examples/23-sevensisters-poster.jpg) |
+| ![](examples/24-shard-original.jpg) | ![](examples/24-shard-poster.jpg) |
+| ![](examples/25-primrose-original.jpg) | ![](examples/25-primrose-poster.jpg) |
+| ![](examples/26-window-original.jpg) | ![](examples/26-window-poster.jpg) |
 
 ## 安装
 
 ```bash
-git clone <这个仓库> ~/code/photo-distill
-ln -s ~/code/photo-distill ~/.claude/skills/photo-distill
+git clone https://github.com/yangcodingmaster/photo-distill.git
+ln -s "$(pwd)/photo-distill" ~/.claude/skills/photo-distill
 ```
 
-软链接之后每个 Claude Code 会话都能触发，改源仓库两边同步。
-**Codex 及其他 agent** 读根目录的 [AGENTS.md](AGENTS.md)——
-把文件夹指给它就行。
+软链接之后，每个 Claude Code 会话都能触发这个 skill。
+**Codex 用户**：把 agent 指到这个文件夹即可——它会读根目录的
+[AGENTS.md](AGENTS.md) 自己找到路，无需其他配置。
 
-然后直接说：
+## 怎么用
 
-> 把这张照片做成海报
+**第一步——丢进一张照片，点名两三个你最在意的元素。** 这句话就是完整的需求：
 
-## 怎么跑
+> 把这张照片做成海报。我想突出窗户的轮廓、外面的绿，和浅浅的渐变光。
 
-一张一张做，速度是第一指标：**约五分钟内你就能看到第一张图。**
+你没点名的东西一律不采样、不绘制——点得少，海报更抽象；点得多，海报更具象。
+不想选的话直说，skill 会只问你一个问题，或者替你挑。
 
-1. **你点名两三个最重要的元素**——"窗户的轮廓、外面的绿、浅浅的光"。
-   这句话就是方案，马上开画。你没点名的东西一律不采样、不绘制
-2. 读原片事实（比例、EXIF），然后一个脚本只采这几个元素的关系量——
-   位置、密度、一条分界线、色相。绝不采轮廓：采了树梢的起伏，就会画出一座山
-3. 一步到位带质感画完，截图，交给你
-4. 你说一句（"黑的像山"），每处修改约 30 秒重新出图
-5. 你说行了：脚本验四项指标，2 倍导出，commit
+**第二步——大约五分钟后第一张图就到你手上。** 用大白话反馈就行：
 
-## 可以改什么
+> 黑的那块太重了，读起来像山。
 
-六个槽位是开放的。默认值是这套视觉语言的原点；
-[references/design-system.md](references/design-system.md#6-自定义槽位)
-的表里写了每个槽位换的时候要守什么。
+每处修改约 30 秒重新出图。你全程不用碰代码。
 
-| 槽位 | 默认 |
-|---|---|
-| **画幅** | 与原片同比例，横竖都跟原片 |
-| **字体** | Courier / 宋体栈——全站一个字体栈，禁用斜体 |
-| **纸色** | 米白 `#e9e3d5` |
-| **色锚** | 按照片轮换——钴蓝、信号红、琥珀、薄荷绿…… |
-| **档案微字** | 三行真实拍摄参数 |
-| **编号** | `NO. XXX` + 套准符 |
+**第三步——你说行了。** 这时 skill 才用脚本核验四项印刷指标
+（色锚面积、着墨率、缩略图可见性、色相集中度），导出 2 倍 PNG，提交存档。
 
-有些东西不开放：噪点层参数、multiply 上纸、不做材质模拟这条铁律、
-色锚的四条硬指标、反向约束清单。改掉这些，它就不是这套语言了。
+想换默认值时开口即可，六个槽位可自定义——画幅、字体、纸色、色锚色板、
+档案微字、编号。细节见 [references/design-system.md](references/design-system.md)。
 
-## 目录
+## 产出
+
+- `poster-XX-name.html`——自足的本地文件，双击即开，零依赖
+- 定稿海报的 2 倍 PNG
+- 纸面上一行你照片的真实参数——绝不编造
+
+## 仓库结构
 
 ```
-SKILL.md                     方法论、工作流、硬性规则——先读这个
-AGENTS.md                    Codex 及其他 agent 的入口
-references/
-  design-system.md           纸、墨、色锚、档案微字、反向约束、自定义槽位
-  filters.md                 可直接复制的 SVG 滤镜库与 mask 用法
-  craft-rules.md             透视三步法、材质语法、失败案例、定稿自查清单
-  pipeline.md                EXIF、HEIC 方向坑、采样约定、导出命令
-assets/template.html         新海报的起步骨架
-examples/                    八对原片与成品对照
+SKILL.md              方法论、工作流、硬性规则
+AGENTS.md             Codex 及其他 agent 的入口
+references/           设计系统 · SVG 滤镜库 · 手艺铁律 · 生产管线
+assets/template.html  每张新海报的起步骨架
+examples/             八对原片与成品对照
 ```
 
-## 一点说明
+## 许可
 
-里面的滤镜参数不是谁挑的默认值——它们是一张一张校准出来的，
-通常是在两三个"看着挺好但其实是错的"版本之后才定下来。
-那些记录**怎么错的**的注释，比参数值本身更值钱。
-这里面哪个数字看着莫名其妙，那多半就藏着一个用几版翻车换来的结论。
-
----
-
-*蒸馏自 Photo Minimal 系列（NO. 001–026）。照片版权归赵洋所有。*
+方法与代码随意使用。照片版权归作者所有——请勿转用图片。
