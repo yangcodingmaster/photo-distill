@@ -213,4 +213,35 @@ Measured on the finished file: colour anchor 1.72%, ink 17.9%, paper 82.1%, hue 
 
 ---
 
+## NO. 026 — 窗格线、一格绿、洒地的光 / A Grid, One Green Pane, Light on the Floor
+
+| 原片 Original | 成品 Poster |
+|---|---|
+| ![](26-window-original.jpg) | ![](26-window-poster.jpg) |
+
+The first poster under the speed-first workflow: the user named three elements — the
+window's outline, the green outside, the soft gradient of light — and that sentence *was*
+the plan. From receiving the photo to the first delivered image: about four minutes.
+
+Three elements, three treatments. The window is an outer frame plus three mullions and
+three transoms, every position measured from luminance valleys in the original. The green
+lives only in the bottom row of panes, exactly where the lawn sits in the photograph
+(measured H=50°, S=64%), with the glazing bars pressing over it. The light is a patch of
+warm tone on the floor with no edge at all. The dark room itself is not drawn — nothing
+else was named, and the paper does the darkness.
+
+速度版流程的第一张：用户点名三个元素——窗户的轮廓、外面的绿、浅浅的渐变光——
+这句话本身就是方案。从拿到照片到交出第一版，约四分钟。
+
+三个元素三种处理。窗是外框加三竖棂三横棂，每个位置都从原片的亮度谷实测；
+绿只住在最下面一排窗格里，正是照片里草坪所在的位置（实测 H=50°、S=64%），
+窗棂从它上面压过去；光是地板上一片没有边的暖。房间的暗不画——
+用户没点名别的东西，纸就是那片暗。
+
+Measured at sign-off: colour anchor 2.41%, ink 10.5%, paper 89.5%, hue 56° (54–57°).
+
+定稿实测：色锚 2.41%，着墨 10.5%，纸 89.5%，色相 56°（54–57°）。
+
+---
+
 *Photographs © Yang Zhao. 照片版权归赵洋所有。*
