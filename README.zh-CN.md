@@ -61,6 +61,11 @@ ln -s "$(pwd)/photo-distill" ~/.claude/skills/photo-distill
 
 每处修改约 30 秒重新出图。你全程不用碰代码。
 
+开工前 agent 会先自检能力——能渲染吗？**能看见自己渲染的图吗**？能采样像素吗？
+看不见的环境（部分 Codex 配置）会自动切换到**盲画协议**：第一版立刻交给你，
+之后每处改动只由你的反馈驱动，绝不自顾自地闷头迭代——你就是它的眼睛。
+颜色永远来自采样像素，不靠感觉编。
+
 **第三步——你说行了。** 这时 skill 才用脚本核验四项印刷指标
 （色锚面积、着墨率、缩略图可见性、色相集中度），导出 2 倍 PNG，提交存档。
 
@@ -77,7 +82,8 @@ ln -s "$(pwd)/photo-distill" ~/.claude/skills/photo-distill
 
 ```
 SKILL.md              方法论、工作流、硬性规则
-AGENTS.md             Codex 及其他 agent 的入口
+AGENTS.md             Codex 及其他 agent 的入口（编号协议）
+CLAUDE.md             仓库被当作 Claude Code 项目打开时的入口
 references/           设计系统 · SVG 滤镜库 · 手艺铁律 · 生产管线
 assets/template.html  每张新海报的起步骨架
 examples/             八对原片与成品对照

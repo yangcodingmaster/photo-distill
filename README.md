@@ -67,6 +67,12 @@ say so and the skill will ask one question or pick for you.
 
 Each fix re-renders in about 30 seconds. You never touch the code.
 
+Before starting, the agent self-checks its capabilities — can it render? can it *see* its
+own render? can it sample pixels? If it cannot see (true of some Codex setups), it
+switches to a **blind protocol**: the first version is delivered immediately, every later
+change is driven only by your feedback, and it never silently self-iterates — you become
+its eyes. Colours always come from sampled pixels, never from vibes.
+
 **Step 3 — say it's right.** Only then does the skill verify the four print metrics by
 script (colour-anchor area, ink coverage, thumbnail visibility, hue concentration),
 export at 2×, and commit.
@@ -85,7 +91,8 @@ anchor palette, archive line, numbering. Details in
 
 ```
 SKILL.md              The method, the workflow, the hard rules
-AGENTS.md             Entry point for Codex and other agents
+AGENTS.md             Entry point for Codex and other agents (numbered protocol)
+CLAUDE.md             Entry point when the repo is opened as a Claude Code project
 references/           Design system · SVG filter library · craft rules · pipeline
 assets/template.html  Skeleton every new poster starts from
 examples/             Eight original-to-poster pairs with notes
