@@ -1,40 +1,37 @@
-# Photo Distill
+# Photo Distill · 照片蒸馏
 
-**English** | [简体中文](README.zh-CN.md)
+[English](README.en.md) | **简体中文**
 
-A skill for Claude Code (and Codex, via [AGENTS.md](AGENTS.md)) that distils your
-photograph into a minimal zine-style paper poster — hand-written HTML/CSS/SVG rendered
-by headless Chrome. No image-generation model. No photo pixels in the output.
+一个 Claude Code skill（Codex 用户经 [AGENTS.md](AGENTS.md) 同样可用）：
+把你拍的照片蒸馏成极简 zine 纸质海报——手写 HTML/CSS/SVG、无头 Chrome 渲染。
+不用图像生成模型，成品里没有一个照片像素。
 
-## Before You Start
+## 写在前面
 
-This skill is not a machine for mindlessly stamping out posters in this style.
-It needs your ideas folded into it. AI has no feelings — a work holds together only
-because **you** are expressing something through it: which two or three elements you
-name, what you say is wrong, when you decide it is done. Those choices are what the
-poster actually shows. So don't just drop a photo on the AI and walk away — your
-participation is not optional; it is part of the method.
+这个 skill 不是让你无脑生成"这种风格"的机器。它需要把你的创意和想法融进去——
+AI 终归没有感情，作品之所以成立，是因为**你**在通过它表达：你点名哪两三个元素、
+你说哪里不对、你决定什么时候算完成。这些选择才是真正给人看的东西。
+所以**不推荐**把照片丢给 AI 就走开，在这里你的参与不是可选项，它就是这套方法的一部分。
 
-## Visual Design
+## 视觉设计
 
-The poster keeps:
+海报保留的：
 
-- an aged off-white plain, at the photograph's own aspect ratio
-- 70–90% of the sheet reading as paper; ink only where it earns its place
-- two or three printed marks distilled from elements **you** name — the rest is dropped
-- one high-saturation colour anchor, 0.8–2.5% of the canvas, verified by script
-- torn-paper soft edges, off-register doubles, print grain — ink pressed into paper
-- an archive line of real shooting parameters (file, camera, exposure, date, GPS)
+- 米白平面，画幅与原片同比例，或者自定义比例
+- 整张 70–90% 读作纸；墨只落在配得上的地方
+- 两三个印刷符号，蒸馏自**你**点名的元素——其余全部丢掉
+- 一个高饱和色锚，占画布 0.8–2.5%，脚本实测把关
+- 手撕柔边、套印错位、印刷颗粒——油墨吃进纸里的样子
+- 一行真实拍摄参数（文件名、机身、曝光、日期、GPS）
 
-and avoids: full-bleed scenes, cinematic lighting, 3D, drop shadows, decorative texture,
-clean digital UI, and any readable slogan or caption.
+避开的：full-bleed 场景铺满、cinematic 打光、3D、厚投影、装饰纹理、
+干净的数字 UI，以及任何可读的口号或文案。
 
-## Examples
+## 示例
 
-Photograph on the left, generated poster on the right.
-Notes on each pair: [examples/](examples/)
+左边是照片，右边是生成的海报。每对的蒸馏说明见 [examples/](examples/)。
 
-| Original | Poster |
+| 原片 | 海报 |
 |---|---|
 | ![](examples/04b-two-kids-original.jpg) | ![](examples/04b-two-kids-poster.jpg) |
 | ![](examples/09-lamp-original.jpg) | ![](examples/09-lamp-poster.jpg) |
@@ -45,69 +42,61 @@ Notes on each pair: [examples/](examples/)
 | ![](examples/25-primrose-original.jpg) | ![](examples/25-primrose-poster.jpg) |
 | ![](examples/26-window-original.jpg) | ![](examples/26-window-poster.jpg) |
 
-## Installation
+## 安装
 
 ```bash
 git clone https://github.com/yangcodingmaster/photo-distill.git
 ln -s "$(pwd)/photo-distill" ~/.claude/skills/photo-distill
 ```
 
-The symlink makes the skill available in every Claude Code session.
-**Codex users**: point the agent at this folder — it reads [AGENTS.md](AGENTS.md) at the
-root and finds its way in. No other setup.
+软链接之后，每个 Claude Code 会话都能触发这个 skill。
+**Codex 用户**：把 agent 指到这个文件夹即可——它会读根目录的
+[AGENTS.md](AGENTS.md) 自己找到路，无需其他配置。
 
-## Usage
+## 怎么用
 
-**Step 1 — drop in a photo and name the two or three elements that matter to you.**
-That sentence is the whole brief:
+**第一步——丢进一张照片，点名两三个你最在意的元素。** 这句话就是完整的需求：
 
 > 把这张照片做成海报。我想突出窗户的轮廓、外面的绿，和浅浅的渐变光。
->
-> *Make a poster from this photo. I want the window's outline, the green outside,
-> and the soft gradient of light.*
 
-Everything you didn't name is neither sampled nor drawn — naming fewer elements gives a
-more abstract poster, naming more gives a more literal one. If you'd rather not choose,
-say so and the skill will ask one question or pick for you.
+你没点名的东西一律不采样、不绘制——点得少，海报更抽象；点得多，海报更具象。
+不想选的话直说，skill 会只问你一个问题，或者替你挑。
 
-**Step 2 — the first image arrives in about five minutes.** React in plain words:
+**第二步——大约五分钟后第一张图就到你手上。** 用大白话反馈就行：
 
-> 黑的那块太重了，读起来像山。 · *The black band is too heavy — it reads like a mountain.*
+> 黑的那块太重了，读起来像山。
 
-Each fix re-renders in about 30 seconds. You never touch the code.
+每处修改约 30 秒重新出图。你全程不用碰代码。
 
-Before starting, the agent self-checks its capabilities — can it render? can it *see* its
-own render? can it sample pixels? If it cannot see (true of some Codex setups), it
-switches to a **blind protocol**: the first version is delivered immediately, every later
-change is driven only by your feedback, and it never silently self-iterates — you become
-its eyes. Colours always come from sampled pixels, never from vibes.
+开工前 agent 会先自检能力——能渲染吗？**能看见自己渲染的图吗**？能采样像素吗？
+看不见的环境（部分 Codex 配置）会自动切换到**盲画协议**：第一版立刻交给你，
+之后每处改动只由你的反馈驱动，绝不自顾自地闷头迭代——你就是它的眼睛。
+颜色永远来自采样像素，不靠感觉编。
 
-**Step 3 — say it's right.** Only then does the skill verify the four print metrics by
-script (colour-anchor area, ink coverage, thumbnail visibility, hue concentration),
-export at 2×, and commit.
+**第三步——你说行了。** 这时 skill 才用脚本核验四项印刷指标
+（色锚面积、着墨率、缩略图可见性、色相集中度），导出 2 倍 PNG，提交存档。
 
-Six slots are customizable when you ask — aspect ratio, typeface, paper colour, colour
-anchor palette, archive line, numbering. Details in
-[references/design-system.md](references/design-system.md).
+想换默认值时开口即可，六个槽位可自定义——画幅、字体、纸色、色锚色板、
+档案微字、编号。细节见 [references/design-system.md](references/design-system.md)。
 
-## Output
+## 产出
 
-- `poster-XX-name.html` — self-contained, double-click to open, no dependencies
-- a 2× PNG export of the finished poster
-- an archive line on the sheet with your photo's real parameters — nothing invented
+- `poster-XX-name.html`——自足的本地文件，双击即开，零依赖
+- 定稿海报的 2 倍 PNG
+- 纸面上一行你照片的真实参数——绝不编造
 
-## Repository Structure
+## 仓库结构
 
 ```
-SKILL.md              The method, the workflow, the hard rules
-AGENTS.md             Entry point for Codex and other agents (numbered protocol)
-CLAUDE.md             Entry point when the repo is opened as a Claude Code project
-references/           Design system · SVG filter library · craft rules · pipeline
-scripts/              finalize_poster.py — fail-closed sign-off (render 2× + four metrics)
-assets/template.html  Skeleton every new poster starts from
-examples/             Eight original-to-poster pairs with notes
+SKILL.md              方法论、工作流、硬性规则
+AGENTS.md             Codex 及其他 agent 的入口（编号协议）
+CLAUDE.md             仓库被当作 Claude Code 项目打开时的入口
+references/           设计系统 · SVG 滤镜库 · 手艺铁律 · 生产管线
+scripts/              finalize_poster.py——fail-closed 定稿（渲染 2x + 四项实测）
+assets/template.html  每张新海报的起步骨架
+examples/             八对原片与成品对照
 ```
 
-## License
+## 许可
 
-Method and code free to use. Photographs © the author — please don't reuse the images.
+方法与代码随意使用。照片版权归作者所有——请勿转用图片。
