@@ -6,6 +6,15 @@ A skill for Claude Code (and Codex, via [AGENTS.md](AGENTS.md)) that distils you
 photograph into a minimal zine-style paper poster — hand-written HTML/CSS/SVG rendered
 by headless Chrome. No image-generation model. No photo pixels in the output.
 
+## Before You Start
+
+This skill is not a machine for mindlessly stamping out posters in this style.
+It needs your ideas folded into it. AI has no feelings — a work holds together only
+because **you** are expressing something through it: which two or three elements you
+name, what you say is wrong, when you decide it is done. Those choices are what the
+poster actually shows. So don't just drop a photo on the AI and walk away — your
+participation is not optional; it is part of the method.
+
 ## Visual Design
 
 The poster keeps:
