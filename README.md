@@ -103,6 +103,7 @@ SKILL.md              The method, the workflow, the hard rules
 AGENTS.md             Entry point for Codex and other agents (numbered protocol)
 CLAUDE.md             Entry point when the repo is opened as a Claude Code project
 references/           Design system · SVG filter library · craft rules · pipeline
+scripts/              finalize_poster.py — fail-closed sign-off (render 2× + four metrics)
 assets/template.html  Skeleton every new poster starts from
 examples/             Eight original-to-poster pairs with notes
 ```

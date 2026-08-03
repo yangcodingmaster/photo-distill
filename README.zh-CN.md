@@ -92,6 +92,7 @@ SKILL.md              方法论、工作流、硬性规则
 AGENTS.md             Codex 及其他 agent 的入口（编号协议）
 CLAUDE.md             仓库被当作 Claude Code 项目打开时的入口
 references/           设计系统 · SVG 滤镜库 · 手艺铁律 · 生产管线
+scripts/              finalize_poster.py——fail-closed 定稿（渲染 2x + 四项实测）
 assets/template.html  每张新海报的起步骨架
 examples/             八对原片与成品对照
 ```

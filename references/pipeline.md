@@ -127,7 +127,7 @@ sips -c 400 600 --cropOffset 1800 2400 "assets/x.jpg" --out "/tmp/right.jpg"
 
 后面只在出意外时补测，不预防性采样。
 
-色锚面积实测（定稿必做）：统计 `sat > 0.35` 的像素占比，与 0.8–2.5% 对照。
+色锚面积等四项定稿实测：唯一真身是 `scripts/finalize_poster.py`（fail-closed），别手写第二份实现。
 
 ---
 
