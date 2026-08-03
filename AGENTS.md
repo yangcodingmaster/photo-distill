@@ -15,41 +15,63 @@ Read it in full before starting any poster task. Everything else is loaded on de
 **[SKILL.md](SKILL.md)** —— 方法论、工作流、硬性规则。
 接到任何海报任务前先完整读一遍，其余按需加载。
 
+## Protocol — hard rules, in order / 协议——按序号执行的硬约束
+
+**0. Capability check — TEST, don't assume. 开工自检——实测，别"以为"。**
+Before any poster work, verify three things:
+(a) you can render HTML → PNG (try it; macOS & Linux commands in
+[references/pipeline.md](references/pipeline.md) §4 — no browser at all → hand the user
+the HTML file itself);
+(b) **you can actually SEE the rendered PNG** — the test: after rendering, name three
+concrete things visible in the image. Can't do it = you are blind = switch to the blind
+protocol below. Pretending to see is worse than not seeing;
+(c) you can run Python + PIL (`python3 -c "from PIL import Image"`).
+开工前实测三件事：能渲染吗；**能看见渲染结果吗**（检验：说出画面里三个东西，
+说不出＝盲＝走盲画协议，不许装）；能跑 Python + PIL 吗。
+
+**Blind protocol / 盲画协议** — when (b) fails: build v1 from sampled numbers, deliver it
+**immediately**, and say plainly "I cannot see my own render — please look and tell me
+what's wrong." After that, every single change must be driven by user feedback: one
+comment → one fix → deliver again. **Zero self-initiated iterations.** A blind revision
+is a wasted revision.
+(b) 不成立时：第一版按采样数据画完**立刻交付**，明说"我看不到渲染结果，请你看图反馈"；
+此后一条反馈 → 一处修改 → 立刻再交，**自发迭代次数为零**。
+
+**1. One self-fix round, then STOP. 一轮自查，然后必须停。**
+After the first render you get **exactly one** round of self-fixes (only defects visible
+at thumbnail size). Then you MUST hand the image to the user. Making two consecutive
+revisions without user input is a protocol violation. Every delivery carries three
+things: the image, one sentence on what changed, one concrete question ("what should I
+adjust?"). The user's one-line reaction outguides five rounds of your own polishing.
+首版渲染后你**有且只有一轮**自查（只修缩略图上看得见的错误），然后必须把图交给用户；
+未经用户输入连改两版＝违反协议。每次交付带三样：图、一句话说明改了什么、一个明确的问题。
+
+**2. Never sample contours. 绝不采轮廓。**
+The sampling list becomes the drawing list — sample a treetop's outline and you will end
+up drawing a mountain. A boundary needs one y value, not 141 profile points. Sample only
+relation quantities: positions, densities, one dividing line, hue/saturation.
+采样清单就是绘制清单——采了树梢的起伏，就会画出一座山。只采关系量：
+位置、密度、一条分界线、色相/饱和度。
+
+**3. Every number from a script; every colour from a sampled pixel. 数字必须脚本算，颜色必须采出来。**
+Coordinates, geometry, colour values — computed, shown, never eyeballed. If sampling is
+impossible in your environment, offer the default palette in
+[references/design-system.md](references/design-system.md) or ask the user to name
+colours — **never invent them from vibes**: an invented palette gets the mood wrong on
+v1 and every later fix guesses on top of the error. The four sign-off metrics are
+**factory inspection, not creative targets**: run them once, only after the user approves
+the look. Never tweak the artwork to chase percentages.
+坐标、几何、色值——脚本算、亮出来，绝不目测。环境跑不了采样就给默认色板或请用户报色，
+**绝不凭印象编**。四项定稿指标是**出厂检验不是创作目标**：只在用户说行之后跑一次，
+禁止为凑百分比改画面。
+
 ## Then, as needed / 然后按需读
 
 | File | Load when |
 |---|---|
-| [references/pipeline.md](references/pipeline.md) | Starting out: EXIF, the minimal-sampling rule, HEIC orientation trap, Chrome export commands · 开工第一步与导出时 |
+| [references/pipeline.md](references/pipeline.md) | Starting out: EXIF, minimal sampling, HEIC trap, render/export commands for macOS & Linux · 开工第一步与导出时 |
 | [references/craft-rules.md](references/craft-rules.md) | Before drawing and before sign-off: perspective, material grammar, failure cases, checklist · 动手前和定稿前 |
 | [references/filters.md](references/filters.md) | Deciding how to draw a symbol: copy-paste SVG filter library, mask patterns · 决定符号怎么画时 |
-| [references/design-system.md](references/design-system.md) | Building the skeleton or checking against constraints: paper, ink, colour anchor, archive type, hard avoids, customization slots · 搭骨架与定稿对表时 |
+| [references/design-system.md](references/design-system.md) | Building the skeleton or checking constraints: paper, ink, colour anchor, archive type, hard avoids, slots · 搭骨架与定稿对表时 |
 | [assets/template.html](assets/template.html) | Copy this to start a new poster · 每张海报的起步骨架 |
 | [examples/](examples/) | Eight original-to-poster pairs with notes · 八对原片与成品对照 |
-
-## Non-negotiables / 不可协商
-
-Three rules matter more than the rest, and all are easy to violate while feeling productive:
-
-有三条比其他都重要，而且违反的时候手感通常还很好：
-
-1. **Speed is the first metric: first image in front of the user within ~5 minutes.**
-   The user names the two or three elements that matter — that sentence IS the plan; start
-   drawing immediately. Everything they did not name: don't sample it, don't draw it.
-   Deliver after one screenshot; the user's one-line feedback beats five rounds of your
-   own polishing.
-   **速度是第一指标：约 5 分钟内让用户看到第一张图。** 用户点名的两三个元素就是方案，
-   直接开画；没点名的东西一律不采样、不绘制。截一张图就交出去——
-   用户一句话反馈顶你自己打磨五轮。
-
-2. **Never sample contours.** The sampling list becomes the drawing list — sample a
-   treetop's outline and you will end up drawing a mountain. A boundary needs one y value,
-   not 141 profile points. Sample only relation quantities: positions, densities, one
-   dividing line, hue/saturation.
-   **绝不采轮廓。** 采样清单就是绘制清单——采了树梢的起伏，就会画出一座山。
-   一道边界只需要一个 y 值。只采关系量：位置、密度、一条分界线、色相/饱和度。
-
-3. **Every number that reaches the artwork must be computed by a script** — coordinates,
-   geometry, colour-anchor area. Show the computation. Never eyeball. The four sign-off
-   metrics run once, only after the user approves.
-   **进成品的每个数字必须脚本算**——坐标、几何、色锚面积。展示计算过程，绝不目测。
-   四项定稿实测只在用户说行之后跑一次。

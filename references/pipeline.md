@@ -1,6 +1,7 @@
 # 生产管线 · Pipeline
 
-从一张原片到一张 2x 成品 PNG。命令全部是 macOS 自带工具 + 无头 Chrome，无需安装依赖。
+从一张原片到一张 2x 成品 PNG。每个环节给两条路径：macOS 自带工具，和跨平台的 Python/PIL——
+在 Codex 等非 macOS 环境里用后者。开工前先做 SKILL.md 的「开工自检」。
 
 ---
 
@@ -8,8 +9,18 @@
 
 ### 尺寸与比例（决定画布）
 
+macOS 路径：
+
 ```bash
 sips -g pixelWidth -g pixelHeight "原始照片/DSC00844.heic"
+```
+
+跨平台路径（PIL，Codex 等 Linux 沙箱用这个）：
+
+```python
+from PIL import Image
+im = Image.open("photo.jpg")
+print(im.size)          # (宽, 高)
 ```
 
 画布按原片比例定，取一个方便的宽度（1200 / 1400），高度按比例算，**用脚本算**：
@@ -20,12 +31,24 @@ python3 -c "print(round(1400 * 2048 / 3089))"   # → 928
 
 ### EXIF
 
+macOS 路径：
+
 ```bash
 mdls -name kMDItemContentCreationDate \
      -name kMDItemLatitude -name kMDItemLongitude \
      -name kMDItemAcquisitionModel \
      -name kMDItemExposureTimeSeconds -name kMDItemFNumber -name kMDItemISOSpeed \
      "原始照片/DSC00844.heic"
+```
+
+跨平台路径（PIL）：
+
+```python
+from PIL import Image, ExifTags
+ex = Image.open("photo.jpg").getexif()
+for k, v in ex.items():
+    print(ExifTags.TAGS.get(k, k), v)   # DateTime / Make / Model / ExposureTime…
+# GPS 在 ex.get_ifd(ExifTags.IFD.GPSInfo) 里；没有就老实写 GPS —
 ```
 
 ⚠️ **时区**：`kMDItemContentCreationDate` 通常是 UTC。换算成拍摄地当地时间——
@@ -38,11 +61,13 @@ mdls -name kMDItemContentCreationDate \
 
 ## 2. 转格式（仅当需要采样像素时）
 
-HEIC / HIF → JPG：
+HEIC / HIF → JPG（macOS 路径）：
 
 ```bash
 sips -s format jpeg "原始照片/IMG_3122.HEIC" --out "assets/IMG_3122.jpg"
 ```
+
+非 macOS：装得上 `pillow-heif` 就用它读；装不上**别硬转**，直接请用户给一张 JPG。
 
 ### ⚠️ iPhone / HEIC 方向标签坑
 
@@ -96,6 +121,10 @@ sips -c 400 600 --cropOffset 1800 2400 "assets/x.jpg" --out "/tmp/right.jpg"
   物体的形状不进采样脚本
 - 分段斜率（透视反推）只在选中元素含地面线/结构时才量
 
+> **硬规则：色值必须来自采样像素。** 采样环境跑不通（没有 PIL、读不了图）时，
+> 把 design-system 的默认色板拿给用户选，或请用户直接报颜色——**绝不凭印象编**。
+> 实测教训：编出来的颜色第一版氛围必错，之后怎么改都是在错的基础上猜。
+
 后面只在出意外时补测，不预防性采样。
 
 色锚面积实测（定稿必做）：统计 `sat > 0.35` 的像素占比，与 0.8–2.5% 对照。
@@ -104,7 +133,10 @@ sips -c 400 600 --cropOffset 1800 2400 "assets/x.jpg" --out "/tmp/right.jpg"
 
 ## 4. 自查与导出
 
-海报源文件是纯本地 HTML，双击可开。自查用无头 Chrome 截图，**亲眼看**，通常 2–3 轮。
+海报源文件是纯本地 HTML，双击可开。自查用无头 Chrome 截图，**亲眼看**
+（看不见就走 SKILL.md 的盲画协议，别装）。
+
+macOS 路径：
 
 ```bash
 "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
@@ -112,6 +144,16 @@ sips -c 400 600 --cropOffset 1800 2400 "assets/x.jpg" --out "/tmp/right.jpg"
   --screenshot="/tmp/check.png" --window-size=1400,928 \
   "file:///绝对路径/海报源文件/poster-24-name.html"
 ```
+
+Linux / 沙箱路径（Codex 等；二进制名可能是 `chromium`、`chromium-browser` 或 `google-chrome`）：
+
+```bash
+chromium --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
+  --screenshot=/tmp/check.png --window-size=1400,928 \
+  "file:///绝对路径/poster-24-name.html"
+```
+
+哪个浏览器都找不到 → 别卡住：把 HTML 文件本体交给用户，请他双击打开、截图给你。
 
 定稿导出 2 倍：
 
