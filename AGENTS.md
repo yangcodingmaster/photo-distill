@@ -28,6 +28,8 @@ protocol below. Pretending to see is worse than not seeing;
 (c) you can run Python + PIL (`python3 -c "from PIL import Image"`).
 开工前实测三件事：能渲染吗；**能看见渲染结果吗**（检验：说出画面里三个东西，
 说不出＝盲＝走盲画协议，不许装）；能跑 Python + PIL 吗。
+Results verified earlier in the same session may be reused; re-test on any new session
+or environment. 同一会话内已实测过的可复用，换会话/换环境必须重测。
 
 **Blind protocol / 盲画协议** — when (b) fails: build v1 from sampled numbers, deliver it
 **immediately**, and say plainly "I cannot see my own render — please look and tell me
