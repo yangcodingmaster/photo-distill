@@ -1,10 +1,13 @@
 # Examples · 示例
 
-Five pairs, chosen to cover five different graphic languages. Left is the photograph,
-right is the poster. Nothing was traced, cropped, or filtered — every poster is drawn
-from scratch in HTML/CSS/SVG, with coordinates sampled from the original by script.
+Eight pairs, each a different graphic language. Left is the photograph, right is the
+poster. Nothing was traced, cropped, or filtered — every poster is drawn from scratch
+in HTML/CSS/SVG, with coordinates sampled from the original by script.
+Picking a language for a new photo? Start from the one-line map in
+[structural-index.md](structural-index.md).
 
-五对，各自代表一种不同的图形语言。左边原片，右边成品。
+八对，各自代表一种不同的图形语言。左边原片，右边成品。
+给新照片选语言，先看一行式索引 [structural-index.md](structural-index.md)。
 没有描摹、没有裁贴、没有套滤镜——每张海报都是从零手写的 HTML/CSS/SVG，
 坐标由脚本从原片采样得到。
 

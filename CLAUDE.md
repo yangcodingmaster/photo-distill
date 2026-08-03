@@ -21,7 +21,7 @@ paper poster — hand-written HTML/CSS/SVG, no image-generation model.
    每次交付带图、一句话说明、一个明确的问题
 2. **绝不采轮廓**：采样清单就是绘制清单；一道边界只要一个 y 值
 3. **数字脚本算、颜色采出来**：色值绝不凭印象编；四项定稿指标是出厂检验不是创作目标，
-   用户说行之后才跑
+   用户说行之后经 `scripts/finalize_poster.py` 跑一次（fail-closed，偏离用 `--waive` 记录）
 
 ## 本仓库的日常约定
 

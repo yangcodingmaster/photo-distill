@@ -127,7 +127,7 @@ sips -c 400 600 --cropOffset 1800 2400 "assets/x.jpg" --out "/tmp/right.jpg"
 
 后面只在出意外时补测，不预防性采样。
 
-色锚面积实测（定稿必做）：统计 `sat > 0.35` 的像素占比，与 0.8–2.5% 对照。
+色锚面积等四项定稿实测：唯一真身是 `scripts/finalize_poster.py`（fail-closed），别手写第二份实现。
 
 ---
 
@@ -155,7 +155,16 @@ chromium --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
 
 哪个浏览器都找不到 → 别卡住：把 HTML 文件本体交给用户，请他双击打开、截图给你。
 
-定稿导出 2 倍：
+定稿导出 2 倍——**首选 fail-closed 定稿脚本**（渲染 + 四项实测一条命令，FAIL 即删）：
+
+```bash
+python3 scripts/finalize_poster.py poster-24-name.html 输出成品/poster-24-name.png \
+  --width 1400 --height 928
+# 用户确认过的偏离：--waive ink --waive thumbnail（会在输出里大声记录）
+# 只量不渲染：--measure-only 已有成品.png
+```
+
+手动路径（脚本不可用时的备份）：
 
 ```bash
 "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \

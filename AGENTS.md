@@ -28,6 +28,8 @@ protocol below. Pretending to see is worse than not seeing;
 (c) you can run Python + PIL (`python3 -c "from PIL import Image"`).
 开工前实测三件事：能渲染吗；**能看见渲染结果吗**（检验：说出画面里三个东西，
 说不出＝盲＝走盲画协议，不许装）；能跑 Python + PIL 吗。
+Results verified earlier in the same session may be reused; re-test on any new session
+or environment. 同一会话内已实测过的可复用，换会话/换环境必须重测。
 
 **Blind protocol / 盲画协议** — when (b) fails: build v1 from sampled numbers, deliver it
 **immediately**, and say plainly "I cannot see my own render — please look and tell me
@@ -60,10 +62,14 @@ impossible in your environment, offer the default palette in
 colours — **never invent them from vibes**: an invented palette gets the mood wrong on
 v1 and every later fix guesses on top of the error. The four sign-off metrics are
 **factory inspection, not creative targets**: run them once, only after the user approves
-the look. Never tweak the artwork to chase percentages.
+the look, via `scripts/finalize_poster.py` (renders 2×, checks, deletes on FAIL;
+user-approved deviations recorded with `--waive`). Never tweak the artwork to chase
+percentages. When delivering from a non-local environment, attach the 6-line run log
+from [references/run-log-template.md](references/run-log-template.md).
 坐标、几何、色值——脚本算、亮出来，绝不目测。环境跑不了采样就给默认色板或请用户报色，
-**绝不凭印象编**。四项定稿指标是**出厂检验不是创作目标**：只在用户说行之后跑一次，
-禁止为凑百分比改画面。
+**绝不凭印象编**。四项定稿指标是**出厂检验不是创作目标**：只在用户说行之后经
+`scripts/finalize_poster.py` 跑一次（FAIL 即删；用户确认的偏离用 `--waive` 记录），
+禁止为凑百分比改画面。非本机环境交付时附 6 行运行日志（run-log-template.md）。
 
 ## Then, as needed / 然后按需读
 
@@ -74,4 +80,6 @@ the look. Never tweak the artwork to chase percentages.
 | [references/filters.md](references/filters.md) | Deciding how to draw a symbol: copy-paste SVG filter library, mask patterns · 决定符号怎么画时 |
 | [references/design-system.md](references/design-system.md) | Building the skeleton or checking constraints: paper, ink, colour anchor, archive type, hard avoids, slots · 搭骨架与定稿对表时 |
 | [assets/template.html](assets/template.html) | Copy this to start a new poster · 每张海报的起步骨架 |
+| [examples/structural-index.md](examples/structural-index.md) | Picking a graphic language for a new photo — structure type → move, read this first · 选语言前先认结构 |
 | [examples/](examples/) | Eight original-to-poster pairs with notes · 八对原片与成品对照 |
+| [scripts/finalize_poster.py](scripts/finalize_poster.py) | Sign-off only: render 2× + four metrics, fail-closed · 定稿专用 |
