@@ -96,8 +96,9 @@ description: >
    每次交付必须带三样：图本体、一句话说明这版改了什么、一个明确的问题（"哪里要调？"）。
    用户一句"黑的像山"顶你五轮自查；千分之几亮度差的像素级缺陷不追
 5. **用户反馈 → 小改快出**：每轮改动一步到位，30 秒内重新出图，不憋大招
-6. **用户说行才定稿**：这时才跑四项实测（见 §三），过了就
-   `--force-device-scale-factor=2` 导出 + git commit
+6. **用户说行才定稿**：跑 `scripts/finalize_poster.py`（渲染 2x + 四项实测一条命令，
+   FAIL 即删，PASS 才有成品；用户确认过的偏离用 `--waive` 显式记录）→ git commit。
+   非本机环境交付时附 6 行运行日志（[run-log-template.md](references/run-log-template.md)）
 
 ---
 
@@ -113,6 +114,9 @@ description: >
 - 定稿前逐条对反向约束清单
 
 ### 定稿实测（脚本跑成品 PNG，四个数一次出，别靠眼估）
+
+**唯一真身是 [scripts/finalize_poster.py](scripts/finalize_poster.py)**——渲染 + 实测 +
+FAIL 即删（fail-closed），下表只是速览，阈值以脚本为准，别照表另写一份实现。
 
 > **这四个数不是创作目标，是出厂检验。** 用户说行之前，禁止为了凑指标修改画面；
 > 创作阶段调色看图、看采样值，不看百分比。把检验标准当目标函数，画面不会变好，
@@ -157,7 +161,9 @@ description: >
 | [filters.md](references/filters.md) | 可直接复制的 SVG 滤镜库（揉边/颗粒/无边界墨气/渗边/油画棒）、mask 四用法、符号词汇 | 决定"这个符号怎么画"时 |
 | [craft-rules.md](references/craft-rules.md) | 透视三步法、材质语法、雾/凹陷/色块/硬边的做法与失败案例、定稿自查清单 | 动手前和定稿前各一次 |
 | [pipeline.md](references/pipeline.md) | EXIF 提取、HEIC 方向坑、采样脚本约定、渲染与 2x 导出命令（macOS/Linux 双路径） | 开工第一步、导出时 |
-| [examples/](examples/) | 八对「原片 → 成品」对照，每对说明蒸馏成了哪几个符号 | 想找参照、或向用户解释这是什么时 |
+| [examples/structural-index.md](examples/structural-index.md) | 结构类型 → 蒸馏手法的一行式索引（学那步棋，不抄那盘棋） | 给新照片选图形语言时**先读这个** |
+| [examples/](examples/) | 八对「原片 → 成品」对照，每对说明蒸馏成了哪几个符号 | 索引命中后想看完整推演时 |
+| [scripts/finalize_poster.py](scripts/finalize_poster.py) | fail-closed 定稿：渲染 2x + 四项实测一条命令 | 只在用户说行之后 |
 
 ---
 
@@ -171,4 +177,6 @@ description: >
 测距墨点人+油画棒湖水 · 色票柱+三笔人+倒影 · 一方冷+亮从里让开/近糊远清 ·
 内透的碎光点场 vs 投射的暖光团/纸兼作夜空与暗地 · 窗格线+一格绿+洒地的光
 
-做新一张时先扫一遍这份清单，确认要用的语言没被用过。用掉一个就往清单里补一条。
+做新一张时先扫一遍这份清单，确认要用的语言没被用过；
+选语言前先查 [examples/structural-index.md](examples/structural-index.md)
+认结构类型——学那步棋，不抄那盘棋。用掉一个新语言就往清单里补一条。
