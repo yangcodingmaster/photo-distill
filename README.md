@@ -1,3 +1,5 @@
+
+
 # Photo Distill · 照片蒸馏
 
 [English](README.en.md) | **简体中文**
@@ -29,7 +31,7 @@ AI 终归没有感情，作品之所以成立，是因为**你**在通过它表�
 
 ## 示例
 
-左边是照片，右边是生成的海报。每对的蒸馏说明见 [examples/](examples/)。
+左边是照片，右边是生成的海报。每对的蒸馏说明见 [examples/](examples/)；为新照片选图形语言先看 [examples/structural-index.md](examples/structural-index.md)。
 
 | 原片 | 海报 |
 |---|---|
